@@ -66,12 +66,18 @@ class traceNatives(plugin_t):
                     else:
                         total_ins[canon_mnem] = 1
         total_ins = sorted(total_ins.items(), key=lambda x: x[1], reverse=True)
+        ins_num = 0
+        ins_use_times=0
         for kv in total_ins:
+            ins_use_times = kv[1] + ins_use_times
+            ins_num=ins_num+1
             F.write("%-15s   ->   %-10d\n" % (kv[0], kv[1]))
             F.flush()
-        print(f"导出完成：{save_path}")
+        F.write("\nTotal.\nNumber of instructions: %d\nInstruction use times：%d\n" % (ins_num,ins_use_times))
+        F.flush()
         F.close()
-        draw_from_dict(total_ins[0:50])# 不显示柱状图可以注释掉
+        print(f"导出完成：{save_path}")
+        draw_from_dict(total_ins[0:50])  # 不显示柱状图可以注释掉
 
     def term(self):
         pass
@@ -92,4 +98,3 @@ def draw_from_dict(data):
 
 def PLUGIN_ENTRY():
     return traceNatives()
-
