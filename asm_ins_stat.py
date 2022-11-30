@@ -38,7 +38,7 @@ def getSegAddr():
     return min(textStart), max(textEnd)
 
 
-class traceNatives(plugin_t):
+class asm_ins_stat(plugin_t):
     flags = PLUGIN_PROC
     comment = "asm_ins_stat"
     help = ""
@@ -97,4 +97,4 @@ def draw_from_dict(data):
 
 
 def PLUGIN_ENTRY():
-    return traceNatives()
+    return asm_ins_stat()
